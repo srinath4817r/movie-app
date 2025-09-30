@@ -44,6 +44,8 @@ RUN chown -R www-data:www-data /app
 
 USER www-data
 
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
-CMD ["php-fpm"]
+# MODIFIED: Expose the correct port that Render uses for Docker
+EXPOSE 10000
+
+# MODIFIED: Start the Laravel server directly
+CMD ["php", "artisan", "serve", "--host", "0.0.0.0", "--port", "10000"]
