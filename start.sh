@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Force Laravel to clear any old settings
+php artisan config:clear
+
+# Force Laravel to create a new settings cache file with the latest keys from Render
+php artisan config:cache
+
 # Run the database migrations
 php artisan migrate --force
 
