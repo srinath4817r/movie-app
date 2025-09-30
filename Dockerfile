@@ -39,13 +39,17 @@ WORKDIR /app
 COPY --from=vendor /app/vendor ./vendor
 COPY . .
 
+# MODIFIED: Copy the new start.sh script
+COPY start.sh /app/start.sh
+# MODIFIED: Make the script executable
+RUN chmod +x /app/start.sh
+
 # Set permissions
 RUN chown -R www-data:www-data /app
 
 USER www-data
 
-# MODIFIED: Expose the correct port that Render uses for Docker
 EXPOSE 10000
 
-# MODIFIED: Start the Laravel server directly
-CMD ["php", "artisan", "serve", "--host", "0.0.0.0", "--port", "10000"]
+# MODIFIED: Run the new start.sh script as the main command
+CMD ["/app/start.sh"]
